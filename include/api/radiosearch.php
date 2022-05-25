@@ -34,7 +34,7 @@ if($resultNum == 0) {
     echo '{"total_page":0,"total_count":0,"current_page":1,"radios":[]}';
     exit;
 } else {
-    $result = $db->sql_query("SELECT id, xid, title, description, logo FROM radios WHERE title LIKE '%$query%' OR description LIKE '%$query%' ORDER BY xid ASC LIMIT $starting, 20");
+    $result = $db->sql_query("SELECT id, xid, streamurl, title, description, logo FROM radios WHERE title LIKE '%$query%' OR description LIKE '%$query%' ORDER BY xid ASC LIMIT $starting, 20");
     $radios = [];
 	// "rate64_aac_url":"http://'.$domain.'/'.$radioRow['xid'].'.m3u8"
     while($radioRow = $db->sql_fetchrow($result)) {

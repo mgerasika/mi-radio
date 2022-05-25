@@ -8,7 +8,8 @@ if($sync==1) {
     $result = $db->sql_query("SELECT xid, title, streamurl, description, logo, country, genre, header, noencode FROM radios");
     $radios = [];
     while($radioRow = $db->sql_fetchrow($result)) {
-	$radios[] = '{"xid":"'.$radioRow['xid'].'","title":"'.addcslashes($radioRow['title'], '"\\/').'","streamurl":"'.$radioRow['streamurl'].'","description":"'.addcslashes($radioRow['description'], '"\\/').'","logo":"'.$radioRow['logo'].'","country":"'.$radioRow['country'].'","genre":"'.$radioRow['genre'].'","header":"'.addcslashes($radioRow['header'], '"\\/').'","noencode":"'.$radioRow['noencode'].'"}';
+	$radios[] = '{"xid":"'.$radioRow['xid'].'","title":"'.addcslashes($radioRow['title'], '"\\/').'","streamurl":"'.$radioRow['streamurl'].'","description":"'.addcslashes($radioRow['description'], '"\\/').'","logo":"'.$radioRow['logo'].'",
+		"country":"'.$radioRow['country'].'","genre":"'.$radioRow['genre'].'","header":"'.addcslashes($radioRow['header'], '"\\/').'","noencode":"'.$radioRow['noencode'].'"}';
     }
     $response = '['.implode(",", $radios).']';
     $response = str_replace("\n", "", $response);

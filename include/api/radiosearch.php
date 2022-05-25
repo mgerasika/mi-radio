@@ -36,8 +36,13 @@ if($resultNum == 0) {
 } else {
     $result = $db->sql_query("SELECT id, xid, title, description, logo FROM radios WHERE title LIKE '%$query%' OR description LIKE '%$query%' ORDER BY xid ASC LIMIT $starting, 20");
     $radios = [];
+	// "rate64_aac_url":"http://'.$domain.'/'.$radioRow['xid'].'.m3u8"
     while($radioRow = $db->sql_fetchrow($result)) {
-        $radios[] = '{"id":'.$radioRow['xid'].',"kind":"radio","program_name":"","radio_name":"'.addslashes($radioRow['title']).'","radio_desc":"'.addslashes($radioRow['description']).'","schedule_id":0,"support_bitrates":[64],"rate24_aac_url":"","rate64_aac_url":"http://'.$domain.'/'.$radioRow['xid'].'.m3u8","rate24_ts_url":"","rate64_ts_url":"","radio_play_count":1,"cover_url_small":"http://'.$domain.'/images/radiologos/thumb/thumb_'.$radioRow['logo'].'","cover_url_large":"http://'.$domain.'/'.$radioRow['logo'].'","updated_at":0,"created_at":0}';
+        $radios[] = '{"id":'.$radioRow['xid'].',"kind":"radio","program_name":"","radio_name":"'.addslashes($radioRow['title']).'","radio_desc":"'.addslashes($radioRow['description']).'","schedule_id":0,"support_bitrates":[64],
+			"rate24_aac_url":"",
+			
+			"rate64_aac_url":"'.$radioRow['streamurl'].'"
+			,"rate24_ts_url":"","rate64_ts_url":"","radio_play_count":1,"cover_url_small":"http://'.$domain.'/images/radiologos/thumb/thumb_'.$radioRow['logo'].'","cover_url_large":"http://'.$domain.'/'.$radioRow['logo'].'","updated_at":0,"created_at":0}';
     }
     $response = '{"total_page":'.ceil($resultNum/20).',"total_count":'.$resultNum.',"current_page":'.$curPage.',"radios":['.implode(",", $radios).']}';
     $response = str_replace("\n", "", $response);
